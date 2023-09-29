@@ -1,0 +1,278 @@
+
+.middle1 {
+  height: 100vh;
+  width: 100%;
+  background-image: url(https://i.redd.it/gt9g2ogy1x261.png);
+  background-position: center 73%;
+  background-size: cover;
+  /* transition: backround-size 0,5 ease; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;}
+
+.trainer-buttons {
+  /* position: absolute; */
+  margin-top: 4px;
+  display: flex;  
+  justify-content: space-between;
+  /* align-items: flex-start;  */
+  /* gap: 16px; */
+  /* padding-top: 4px; */
+  /* padding-left: 4px; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /* width: fit-content; */
+}
+
+.trainer-buttons button {
+  align-items: center;
+    appearance: none;
+    background-color: #edea84;
+    background-image: linear-gradient(1deg, #A0D9D4, #edea84 92%);
+    background-size: calc(100% + 20px) calc(100% + 20px);
+    border-radius: 100px;
+    border-width: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #0e0b0b;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: CircularStd,sans-serif;
+    font-size: 1rem;
+    height: auto;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 6px 20px;
+    margin-left: 4px;
+    /* position: fixed; */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s,background-position .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  .trainer-buttons button:active,
+  .trainer-buttons button:focus {
+    outline: none;
+  }
+  
+  .trainer-buttons button:hover {
+    background-position: -20px -20px;
+  }
+  
+  .trainer-buttons button:focus:not(:active) {
+    box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
+  }
+
+
+.trainer-input-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: left; */
+  justify-content: left;
+}
+
+.trainer-input-container input {
+  align-items: center;
+    appearance: none;
+    background-color: #edea84;
+    background-image: linear-gradient(1deg, #fbf8f8, #d1d1cd 92%);
+    /* background-size: calc(100% + 20px) calc(100% + 20px); */
+    border-radius: 100px;
+    border-width: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #0e0b0b;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: CircularStd,sans-serif;
+    font-size: 1rem;
+    height: 30px;
+    width: 240px;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 6px 20px;
+    margin-left: 4px;
+    /* position: fixed; */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s,background-position .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.select-trainer-button-style {
+  margin-right: 4px;
+  margin-top: 4px;
+}
+
+.trainer-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.trainer-bio {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  width: 40px;
+  padding-top: 4px;
+  padding-left: 4px;
+  margin-left: 2px;
+  margin-right: 160px;
+}
+
+.bio-images {
+  display: flex;
+  flex-direction: column;
+}
+
+.trainer-image {
+  align-items: flex-start;
+  z-index: 1;
+  margin-bottom: -80%;
+  height: 240px;
+  width: 200px;
+}
+
+.platform-image {
+  height: 178px;
+  width: 190px;
+  z-index: 0; 
+  margin-top: -50%;
+}
+
+.trainer-details{
+  display: flex;
+  padding: 4px;
+  z-index: 2;
+  padding: 8px;
+}
+
+.trainer-name{
+  display: flex; 
+  background-color: #F27877;
+  border-radius: 4px;
+  padding: 4px;
+  margin-bottom: 4px;
+}
+
+.trainer-age{
+  display: flex;
+  flex-direction: row;
+  background-color: #F27877;
+  border-radius: 4px;
+  padding: 4px;
+  margin-bottom: 4px;
+}
+
+.create-input {
+  margin: 4px;
+  display: block;
+  background-color: #edea84;
+}
+
+.select-trainer{
+  align-items: center;
+    appearance: none;
+    background-color: #edea84;
+    background-image: linear-gradient(1deg, #A0D9D4, #edea84 92%);
+    background-size: calc(100% + 20px) calc(100% + 20px);
+    border-radius: 100px;
+    border-width: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #0e0b0b;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: CircularStd,sans-serif;
+    font-size: small;
+    height: auto;
+    justify-content: center;
+    line-height: 1.0;
+    padding: 0px 10px;
+    margin-left: 4px;
+    /* position: fixed; */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s,background-position .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  select-trainer:active,
+  select-trainer:focus {
+    outline: none;
+  }
+  
+  select-trainer:hover {
+    background-position: -20px -20px;
+  }
+  
+  select-trainer:focus:not(:active) {
+    box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
+  /* background-color: #F27877;
+  color: whitesmoke;
+  margin-left: 4px; */
+}
+
+.avatarPicture{
+  display: flex;
+  flex-direction: row;
+  height: 400px;
+  width: 300px;
+}
+
+.submitButton {
+  align-items: center;
+    appearance: none;
+    background-color: #edea84;
+    background-image: linear-gradient(1deg, #A0D9D4, #edea84 92%);
+    background-size: calc(100% + 20px) calc(100% + 20px);
+    border-radius: 100px;
+    border-width: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #0e0b0b;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: CircularStd,sans-serif;
+    font-size: 1rem;
+    height: auto;
+    justify-content: center;
+    line-height: 1.0;
+    padding: 0px 10px;
+    margin-left: 4px;
+    /* position: fixed; */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s,background-position .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  submitButton:active,
+  submitButton:focus {
+    outline: none;
+  }
+  
+  submitButton:hover {
+    background-position: -20px -20px;
+  }
+  
+  submitButton:focus:not(:active) {
+    box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
+  }
+ 

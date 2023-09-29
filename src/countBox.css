@@ -1,0 +1,26 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mainBox {
+  size-adjust: fit-content;
+  margin: auto;
+  background-color: aqua;
+}
+
+.number {
+  font-size: xx-large;
+}
+
+.button {
+  font-size: medium;
+  color: red;
+}
+
+.addBox {
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+}
