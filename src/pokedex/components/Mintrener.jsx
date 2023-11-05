@@ -1,17 +1,17 @@
 import { useState } from "react";
-import "./Mintrener.css";
+import "../styles/Mintrener.css";
 import { TrainerForm } from "./TrainerForm";
 import { TrainersList } from "./ListeAvTrenere";
 import {
   getTrainers,
   saveTrainers,
   saveSelecetdTrainer,
-} from "./trainerService";
+} from "../api/trainerService";
 
 export const MinTrener = () => {
   const [customizeTrainer, setCustomizeTrainer] = useState("create");
   const [trainers, setTrainers] = useState(getTrainers);
-
+  // console.log("min trener", trainers)
   const handleSubmit = (newTrainer) => {
     console.log("MinTrener console log:", newTrainer);
     const nameAlreadyExists = trainers.find((existingTrainer) => {
@@ -27,7 +27,8 @@ export const MinTrener = () => {
 
   return (
     <div className="middle1">
-      <div className="trainer-buttons">
+      <div className="trainer-buttons-container">
+      {customizeTrainer === "pick" && (
         <button
           className="trainer-buttons button"
           type="button"
@@ -35,16 +36,18 @@ export const MinTrener = () => {
         >
           Lag Trener
         </button>
+      )}
+       {customizeTrainer === "create" && (
         <button
           className="select-trainer-button-style"
           onClick={() => setCustomizeTrainer("pick")}
         >
           Trenere
         </button>
-      </div>
+       )}
+       </div>
       {customizeTrainer === "create" && (
         <TrainerForm
-          // className="createTrainerForm"
           onSubmit={(newTrainer) => {
             console.log("newTrainer submit:", newTrainer);
 

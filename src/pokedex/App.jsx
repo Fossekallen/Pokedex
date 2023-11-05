@@ -1,11 +1,11 @@
 // import SearchParams from "./searchPerams";
-import "./global.css";
+import "./styles/global.css";
 import { useState } from "react";
-import { TrainerBio } from "./trainer-bio";
-import { Pokedex } from "./pokedex"; //sett inn i stedet for GuessingGame
-import { MinTrener } from "./Mintrener";
-import { NavBio } from "./NavBio";
-import { GuessingGame } from "./erlendChallange";
+import { TrainerBio } from "./components/trainer-bio";
+import { Pokedex } from "./components/pokedex"; 
+import { MinTrener } from "./components/Mintrener";
+import { NavBio } from "./components/NavBio";
+// import { GuessingGame } from "./erlendChallange";
 
 const App = () => {
   const pageNames = ["pokedex", "minTrener", "Fange-Pokemon"];
@@ -20,7 +20,7 @@ const App = () => {
           role="button"
           onClick={() => setCurrentPage(pageNames[2])}
         >
-          Fange pokemon
+          Pokemon Spill
         </button>
         <button
           className="nav.button"
@@ -28,7 +28,7 @@ const App = () => {
           onClick={() => setCurrentPage(pageNames[1])}
         >
           {" "}
-          Velg Trener
+          Lag / Velg Trener
         </button>
         <button
           className="nav.button"
@@ -41,7 +41,7 @@ const App = () => {
 
       {currentPage === "Fange-Pokemon" && <TrainerBio />}
       {currentPage === "minTrener" && <MinTrener />}
-      {currentPage === "pokedex" && <GuessingGame />}
+      {currentPage === "pokedex" && <Pokedex />}
     </div>
   );
 };

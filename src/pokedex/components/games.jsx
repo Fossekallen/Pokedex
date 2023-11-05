@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./games.css";
+import "../styles/games.css";
 
 function calculate(firstNumber, secondNumber, mathLevel) {
   if (mathLevel === "level1") {

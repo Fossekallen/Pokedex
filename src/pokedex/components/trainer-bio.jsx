@@ -1,10 +1,10 @@
-import { getTrainers, getSelectedTrainerName } from "./trainerService";
+import { getTrainers, getSelectedTrainerName } from "../api/trainerService";
 import { useState } from "react";
 import { MathGames, ReadGames } from "./games";
-import "./catchPokemon.css";
+import "../styles/catchPokemon.css";
 
 export const MathProblems = () => {
-  const [selectMathProblem, setSelectMathProblem] = useState("none"); //level1, level2, level3
+  const [selectMathProblem, setSelectMathProblem] = useState("level1"); //level1, level2, level3
 
   const mathLevelSelect = (props) => {
     const levelSelect = props;

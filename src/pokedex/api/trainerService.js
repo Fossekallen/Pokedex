@@ -29,7 +29,7 @@ export const getSelectedTrainerName = () => {
 export const getSelectedTrainer = () =>{
 const selectedTrainerName = getSelectedTrainerName();
 const trainers = getTrainers();
-
+console.log(selectedTrainerName)
 if (!selectedTrainerName) {
   return undefined
 }

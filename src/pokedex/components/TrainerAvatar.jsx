@@ -1,10 +1,10 @@
 // import { useState } from "react";
-import vincent from "./vincent-trener1.png";
-import jordan from "./jordan.png";
-import adele from "./adele-trener.png";
-import leo from "./leo-trener1.png";
-import islandFloat from "./islandFloat.png";
-import "./Mintrener.css";
+import vincent from "../../assets/vincent-trener1.png";
+import jordan from "../../assets/jordan.png";
+import adele from "../../assets/adele-trener.png";
+import leo from "../../assets/leo-trener1.png";
+import islandFloat from "../../assets/islandFloat.png";
+import "../styles/Mintrener.css";
 
 export function TrainerAvatar({ setAvatar }) {
   const imageRoutes = [jordan, leo, adele, vincent];

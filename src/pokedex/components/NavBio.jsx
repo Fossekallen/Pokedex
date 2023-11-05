@@ -1,4 +1,4 @@
-import { getSelectedTrainer } from "./trainerService";
+import { getSelectedTrainer } from "../api/trainerService";
 
 export const NavBio = () => {
   const trainerProfile = getSelectedTrainer();

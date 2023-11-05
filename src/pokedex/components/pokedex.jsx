@@ -1,7 +1,7 @@
-import "./pokedex.css";
-import "./Mintrener.css";
+import "../styles/pokedex.css";
+import "../styles/Mintrener.css";
 import { useState, useEffect } from "react";
-import jordan from "./jordan.png";
+import jordan from "../../assets/jordan.png";
 
 export const Pokedex = () => {
   const [pokemons, setPokemon] = useState([]);

@@ -1,11 +1,11 @@
 // import { useState } from "react";
 // import { getTrainers } from "./trainerService";
-import "./Mintrener.css";
-import islandFloat from "./islandFloat.png";
+import "../styles/Mintrener.css";
+import islandFloat from "../../assets/islandFloat.png";
 
 export function TrainersList(props) {
   const trainers = props.trainers;
-  console.log(props);
+  console.log("trainers list");
   if (trainers.length === 0) {
     return <p>Det finnes ingen trenere ennå</p>;
   }
