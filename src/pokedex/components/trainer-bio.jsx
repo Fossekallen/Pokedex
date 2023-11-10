@@ -18,7 +18,7 @@ export const MathProblems = () => {
   };
 
   return (
-    <div>
+    <div className="trainer-info-wrap">
       <button
         className="select-level-button"
         onClick={() => mathLevelSelect("level1")}
@@ -146,10 +146,7 @@ export const TrainerBio = () => {
           Lese oppgaver
         </button>
       </div>
-
-      {selectTask === "math" && <MathProblems />}
-      {selectTask === "read" && <ReadTasks />}
-
+      <div className="page-content">
       <div className="trainer-info-wrap">
         <img
           className="selected-trainer-bio"
@@ -162,7 +159,15 @@ export const TrainerBio = () => {
           <p className="trainer-bio-text">
             Favoritt Pokemon: {selectedTrainerBio.favPokemon}
           </p>
+       
         </div>
+        </div>
+
+    
+        {selectTask === "math" && <MathProblems />}
+        {selectTask === "read" && <ReadTasks />}
+    
+
       </div>
     </div>
   );

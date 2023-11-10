@@ -8,7 +8,6 @@ import "../styles/Mintrener.css";
 
 export function TrainerAvatar({ setAvatar }) {
   const imageRoutes = [jordan, leo, adele, vincent];
-  console.log("jordan variabel:", jordan);
 
   return (
     <div className="avatarPicture">
@@ -16,7 +15,10 @@ export function TrainerAvatar({ setAvatar }) {
         return (
           <img
             key={route}
-            onClick={() => setAvatar(route)}
+            onClick={() => {
+              setAvatar(route);
+              console.log("picture pressed", jordan);
+            }}
             className="avatarPicture"
             src={route}
           />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/games.css";
+import jordan from "../../assets/jordan.png";
 
 function calculate(firstNumber, secondNumber, mathLevel) {
   if (mathLevel === "level1") {
@@ -79,8 +80,18 @@ export const MathGames = (props) => {
     setGuess(value);
   }
 
+  const culculationFeedback = () => {
+    if (answer === guess) {
+      return (<img className="feedbackImage" src={jordan}/>)
+    } else if (answer === !guess) {
+      return (<img className="feedbackImage" src={jordan}/>)
+    }         
+  }
+
+  const image = [jordan];
   return (
     <div>
+
       {mathLevel === "level1" && (
         <div>
           <h1 className="game-header">Nivå 1</h1>
@@ -112,6 +123,7 @@ export const MathGames = (props) => {
       {mathLevel === "level2" && (
         <div>
           <h1 className="game-header">Nivå 2</h1>
+          <div className="calculation">
           <button className="mathButton" onClick={handleClick}>
             Lag Mattestykke
           </button>
@@ -127,6 +139,8 @@ export const MathGames = (props) => {
             ></input>
             <button className="mathButton">Send Svar</button>
             <div className="asterisk">{answer}</div>{" "}
+            <div className="asterisk">{guess}</div>{" "}
+          </div>
           </div>
         </div>
       )}
@@ -134,6 +148,7 @@ export const MathGames = (props) => {
       {mathLevel === "level3" && (
         <div>
           <h1 className="game-header">Nivå 3</h1>
+          <div className="calculation">
           <button className="mathButton" onClick={handleClick}>
             Lag Mattestykke
           </button>
@@ -148,7 +163,12 @@ export const MathGames = (props) => {
               onClick={onGuess}
             ></input>
             <button className="mathButton">Send Svar</button>
-            <div className="asterisk">{answer}</div>{" "}
+          </div>
+            
+          </div>
+          <div className="mathAnswerGraphic">
+            <div className="asterisk">{answer} <p>Is the answer</p></div>{" "}
+            <div className="asterisk">{guess}<p>Is the guess</p> </div>{" "}
           </div>
         </div>
       )}

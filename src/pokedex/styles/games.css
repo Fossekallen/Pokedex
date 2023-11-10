@@ -45,6 +45,11 @@
   outline:none;
 }
 
+.mathLevelButtons {
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
 .mathButton {
   appearance: none;
     background-color: #edea84;
@@ -75,4 +80,23 @@
     touch-action: manipulation;
     vertical-align: top;
     white-space: nowrap;
+}
+
+.mathButton:active,
+.mathButton:focus {
+  outline: none;
+  box-shadow: none; 
+}
+
+.mathButton:hover {
+  background-position: -20px -20px;
+}
+
+.mathButton:focus:not(:active) {
+  box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 0.125em;
+}
+
+.mathAnswerGraphic {
+  display: flex;
+  
 }

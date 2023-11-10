@@ -31,7 +31,7 @@ const selectedTrainerName = getSelectedTrainerName();
 const trainers = getTrainers();
 console.log(selectedTrainerName)
 if (!selectedTrainerName) {
-  return undefined
+  return undefined //sette inn en avatar som eksempel, slik at sider som har dette som betingelse fortsatt vises
 }
 const trainerProfile = trainers.find(
   (trainer) => trainer.name === selectedTrainerName
