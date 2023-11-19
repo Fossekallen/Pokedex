@@ -2,15 +2,120 @@
 import "./styles/global.css";
 import { useState } from "react";
 import { TrainerBio } from "./components/trainer-bio";
-import { Pokedex } from "./components/pokedex"; 
+import { Pokedex } from "./components/pokedex";
 import { MinTrener } from "./components/Mintrener";
 import { NavBio } from "./components/NavBio";
-// import { GuessingGame } from "./erlendChallange";
+import * as trainerService from "./api/trainerService";
+
+const appState = {
+  currentPage: "pokedex",
+  selectedTrainer: {
+    name: "leo",
+    age: 8,
+    favPokemon: "jiggelypuff",
+    image: "https://...",
+    backgroundImage: "https://...",
+  },
+  capturedPokemon: [
+    {
+      pokemonId: "pokemon-1",
+      trainerId: "trainer-1",
+      captureDate: "2020-02-02T12:00:00",
+    },
+    {
+      pokemonId: "pokemon-2",
+      trainerId: "trainer-2",
+      captureDate: "2020-02-02T12:00:00",
+    },
+    {
+      pokemonId: "pokemon-2",
+      trainerId: "trainer-3",
+      captureDate: "2020-02-02T12:00:00",
+    },
+    {
+      pokemonId: "pokemon-2",
+      trainerId: "trainer-4",
+      captureDate: "2020-02-02T12:00:00",
+    },
+  ],
+  taskTypes: ["math", "reading"],
+  taskState: {
+    type: "math",
+    level: 1,
+    problem: "1+1",
+    answer: 2,
+  },
+  createTrainer: { name: "", age: 8, favPokemon: "pikachu" },
+  allTrainers: [
+    { id: "trainer-1", name: "leo", age: 8, favPokemon: "jiggelypuff" },
+    { id: "trainer-2", name: "stian", age: 38, favPokemon: "snorlax" },
+    { id: "trainer-3", name: "adele", age: 5, favPokemon: "charmander" },
+    { id: "trainer-4", name: "vincent", age: 7, favPokemon: "blastois" },
+  ],
+  allPokemon: [
+    {
+      id: "pokemon-1",
+      name: "Bulbasaur",
+      imageUrl: "https://pokeimage.com/...",
+    },
+    { id: "pokemon-2", name: "Ivysaur", imageUrl: "https://pokeimage.com/..." },
+  ],
+};
+
+/**
+ {  type: 'reading',
+    text: 'bla bla bla',
+    level: 2,
+    startTime: '2023-02-02T12:00:00',}
+ */
+function getInitialAppState() {
+  const allTrainers = trainerService.getTrainers();
+  const selectedTrainerName = trainerService.getSelectedTrainerName();
+
+  return {
+    currentPage: "pokedex" || "TrainerForm" || "games",
+    selectedTrainerName, // 'leo'
+    allTrainers,
+  };
+}
+
+const getCurrentPage = (setCurrentPage) => {
+  const selectedPage = appState.currentPage;
+  return selectedPage;
+};
+
+const getCurrentTrainer = (appState) => {
+  // get trainer object
+  const selectedTrainer = appState.allTrainers.find(
+    (trainer) => trainer.name === appState.selectedTrainerName,
+  );
+  return selectedTrainer;
+};
+
+const updateCurrentTrainer = (appState, trainerName) => {
+  const appStateClone = structuredClone(appState);
+
+  // set trainer object
+  appStateClone.selectedTrainerName = trainerName;
+
+  return appStateClone; // <- IMPORTANT
+};
+
+const SelectTrainerPage = (props) => {
+  const { appState, setAppState } = props;
+
+  const onTrainerClick = (trainer) => {
+    const nextState = updateCurrentTrainer(appState, trainer.name);
+    setAppState(nextState);
+  };
+};
 
 const App = () => {
-  const pageNames = ["pokedex", "minTrener", "Fange-Pokemon"];
-  const [currentPage, setCurrentPage] = useState(pageNames[1]);
-  console.log(currentPage);
+  const [currentAppState, setAppState] = useState(() => {
+    return getInitialAppState();
+  });
+  const currentPage = getCurrentPage(currentAppState);
+
   return (
     <div className="body">
       <div className="nav">
@@ -18,14 +123,14 @@ const App = () => {
         <button
           className="button"
           role="button"
-          onClick={() => setCurrentPage(pageNames[2])}
+          onClick={() => setAppState(appState.SelectTrainerPage("games"))}
         >
           Pokemon Spill
         </button>
         <button
           className="nav.button"
           role="button"
-          onClick={() => setCurrentPage(pageNames[1])}
+          onClick={() => setCurrentPage(currentPage("minTrener"))}
         >
           {" "}
           Lag / Velg Trener
@@ -33,15 +138,21 @@ const App = () => {
         <button
           className="nav.button"
           role="button"
-          onClick={() => setCurrentPage(pageNames[0])}
+          onClick={() => setCurrentPage(appState.currentPage("pokedex"))}
         >
           Pokedex
         </button>
       </div>
 
-      {currentPage === "Fange-Pokemon" && <TrainerBio />}
-      {currentPage === "minTrener" && <MinTrener />}
-      {currentPage === "pokedex" && <Pokedex />}
+      {currentPage === "games" && (
+        <TrainerBio appState={currentAppState} setAppState={setAppState} />
+      )}
+      {currentPage === "minTrener" && (
+        <MinTrener appState={currentAppState} setAppState={setAppState} />
+      )}
+      {currentPage === "pokedex" && (
+        <Pokedex appState={currentAppState} setAppState={setAppState} />
+      )}
     </div>
   );
 };
