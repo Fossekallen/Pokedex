@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/games.css";
 import jordan from "../../assets/jordan.png";
+import leo from "../../assets/leo-trener1.png";
 
 function calculate(firstNumber, secondNumber, mathLevel) {
   if (mathLevel === "level1") {
@@ -18,6 +19,7 @@ export const MathGames = (props) => {
   const [secondNumber, setSecondNumber] = useState(0);
   const [guess, setGuess] = useState(0);
   const mathLevel = props.selectMathProblem;
+  const [submittedAnswer, setSubmittedAnswer] = useState(undefined);
 
   const answer = calculate(firstNumber, secondNumber, mathLevel);
 
@@ -77,24 +79,37 @@ export const MathGames = (props) => {
 
   function onGuess(e) {
     const value = e.target.value;
-    setGuess(value);
+    const parsedValue = Number.parseInt(value);
+    setGuess(parsedValue);
+  }
+
+  function onSubmitGuess() {
+    console.log("trykket på svar knapp", { guess, answer });
+    setSubmittedAnswer(guess);
   }
 
   const culculationFeedback = () => {
-    if (answer === guess) {
-      return (<img className="feedbackImage" src={jordan}/>)
-    } else if (answer === !guess) {
-      return (<img className="feedbackImage" src={jordan}/>)
-    }         
-  }
+    if (submittedAnswer === answer) {
+      return (
+        <img className="feedbackImage" src={jordan} width={40} height={40} />
+      );
+    } else {
+      return <img className="feedbackImage" src={leo} width={40} height={40} />;
+    }
+  };
 
-  const image = [jordan];
   return (
     <div>
-
       {mathLevel === "level1" && (
         <div>
-          <h1 className="game-header">Nivå 1</h1>
+          <h1
+            className={`game-header ${guess === 0 ? "red" : "blue"}`}
+            style={{
+              backgroundColor: guess === 0 ? "red" : "blue",
+            }}
+          >
+            Nivå 1
+          </h1>
           <div className="calculation">
             <button
               className="mathButton"
@@ -113,7 +128,9 @@ export const MathGames = (props) => {
               type="number"
               onChange={onGuess}
             ></input>
-            <button className="mathButton">Send Svar</button>
+            <button className="mathButton" onClick={onSubmitGuess}>
+              Send Svar
+            </button>
             <div className="asterisk">{answer}</div>{" "}
             <div className="asterisk">{guess}</div>{" "}
           </div>
@@ -124,23 +141,25 @@ export const MathGames = (props) => {
         <div>
           <h1 className="game-header">Nivå 2</h1>
           <div className="calculation">
-          <button className="mathButton" onClick={handleClick}>
-            Lag Mattestykke
-          </button>
-          <div className="calculation">
-            <label className="mathNumbers">{firstNumber}</label>{" "}
-            <div className="asterisk">-</div>{" "}
-            <label className="mathNumbers">{secondNumber}</label>
-            <div className="asterisk">=</div>{" "}
-            <input
-              className="input-box"
-              type="number"
-              onClick={onGuess}
-            ></input>
-            <button className="mathButton">Send Svar</button>
-            <div className="asterisk">{answer}</div>{" "}
-            <div className="asterisk">{guess}</div>{" "}
-          </div>
+            <button className="mathButton" onClick={handleClick}>
+              Lag Mattestykke
+            </button>
+            <div className="calculation">
+              <label className="mathNumbers">{firstNumber}</label>{" "}
+              <div className="asterisk">-</div>{" "}
+              <label className="mathNumbers">{secondNumber}</label>
+              <div className="asterisk">=</div>{" "}
+              <input
+                className="input-box"
+                type="number"
+                onClick={onGuess}
+              ></input>
+              <button className="mathButton" onClick={onSubmitGuess}>
+                Send Svar
+              </button>
+              <div className="asterisk">{answer}</div>{" "}
+              <div className="asterisk">{guess}</div>{" "}
+            </div>
           </div>
         </div>
       )}
@@ -149,26 +168,33 @@ export const MathGames = (props) => {
         <div>
           <h1 className="game-header">Nivå 3</h1>
           <div className="calculation">
-          <button className="mathButton" onClick={handleClick}>
-            Lag Mattestykke
-          </button>
-          <div className="calculation">
-            <label className="mathNumbers">{firstNumber}</label>{" "}
-            <div className="asterisk">*</div>{" "}
-            <label className="mathNumbers">{secondNumber}</label>
-            <div className="asterisk">=</div>{" "}
-            <input
-              className="input-box"
-              type="number"
-              onClick={onGuess}
-            ></input>
-            <button className="mathButton">Send Svar</button>
-          </div>
-            
+            <button className="mathButton" onClick={handleClick}>
+              Lag Mattestykke
+            </button>
+            <div className="calculation">
+              <label className="mathNumbers">{firstNumber}</label>{" "}
+              <div className="asterisk">*</div>{" "}
+              <label className="mathNumbers">{secondNumber}</label>
+              <div className="asterisk">=</div>{" "}
+              <input
+                className="input-box"
+                type="number"
+                onClick={onGuess}
+              ></input>
+              <button className="mathButton" onClick={onSubmitGuess}>
+                Send Svar
+              </button>
+            </div>
           </div>
           <div className="mathAnswerGraphic">
-            <div className="asterisk">{answer} <p>Is the answer</p></div>{" "}
-            <div className="asterisk">{guess}<p>Is the guess</p> </div>{" "}
+            <div className="asterisk">
+              {answer} <p>Is the answer</p>
+            </div>{" "}
+            <div className="asterisk">
+              {guess}
+              <p>Is the guess</p>{" "}
+            </div>{" "}
+            {culculationFeedback()}
           </div>
         </div>
       )}
