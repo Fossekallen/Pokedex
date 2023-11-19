@@ -7,7 +7,7 @@ import { MinTrener } from "./components/Mintrener";
 import { NavBio } from "./components/NavBio";
 import * as trainerService from "./api/trainerService";
 
-const appState = {
+const idealAppState = {
   currentPage: "pokedex",
   selectedTrainer: {
     name: "leo",
@@ -73,13 +73,19 @@ function getInitialAppState() {
   const selectedTrainerName = trainerService.getSelectedTrainerName();
 
   return {
-    currentPage: "pokedex" || "TrainerForm" || "games",
+    currentPage: "pokedex",
     selectedTrainerName, // 'leo'
     allTrainers,
   };
 }
 
-const getCurrentPage = (setCurrentPage) => {
+function updateCurrentPage(appState, nextPage) {
+  const stateClone = structuredClone(appState);
+  stateClone.currentPage = nextPage; //update appstate next page
+  return stateClone;
+}
+
+const getCurrentPage = (appState) => {
   const selectedPage = appState.currentPage;
   return selectedPage;
 };
@@ -101,20 +107,25 @@ const updateCurrentTrainer = (appState, trainerName) => {
   return appStateClone; // <- IMPORTANT
 };
 
-const SelectTrainerPage = (props) => {
-  const { appState, setAppState } = props;
+// const SelectTrainerPage = (props) => {
+//   const { appState, setAppState } = props;
 
-  const onTrainerClick = (trainer) => {
-    const nextState = updateCurrentTrainer(appState, trainer.name);
-    setAppState(nextState);
-  };
-};
+//   const onTrainerClick = (trainer) => {
+//     const nextState = updateCurrentTrainer(appState, trainer.name);
+//     setAppState(nextState);
+//   };
+// };
 
 const App = () => {
   const [currentAppState, setAppState] = useState(() => {
     return getInitialAppState();
   });
   const currentPage = getCurrentPage(currentAppState);
+
+  function setCurrentPage(nextPage) {
+    const nextAppState = updateCurrentPage(currentAppState, nextPage);
+    setAppState(nextAppState);
+  }
 
   return (
     <div className="body">
@@ -123,14 +134,14 @@ const App = () => {
         <button
           className="button"
           role="button"
-          onClick={() => setAppState(appState.SelectTrainerPage("games"))}
+          onClick={() => setCurrentPage("games")}
         >
           Pokemon Spill
         </button>
         <button
           className="nav.button"
           role="button"
-          onClick={() => setCurrentPage(currentPage("minTrener"))}
+          onClick={() => setCurrentPage("minTrener")}
         >
           {" "}
           Lag / Velg Trener
@@ -138,7 +149,7 @@ const App = () => {
         <button
           className="nav.button"
           role="button"
-          onClick={() => setCurrentPage(appState.currentPage("pokedex"))}
+          onClick={() => setCurrentPage("pokedex")}
         >
           Pokedex
         </button>
