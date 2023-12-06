@@ -7,6 +7,7 @@ export function TrainerForm(props) {
   const [age, setAge] = useState("");
   const [favPokemon, setFavPokemon] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleSubmit = (e) => {
     console.log("handleSubmit i TrainerForm:", e);
@@ -19,7 +20,15 @@ export function TrainerForm(props) {
       // avatar: <img src={e.avatar} alt={e.avatar} />,
     };
 
-    props.onSubmit(newTrainer);
+    const error = props.onSubmit(newTrainer);
+    /**
+     * TODO: Homework for Stian
+     * Show the following error message on screen for the user
+     * Hint: You need to make a new useState()
+     */
+    // if (error) {
+    //   setErrorMessage(error.message);
+    // }
   };
 
   const handleNameChange = (event) => {
@@ -61,10 +70,10 @@ export function TrainerForm(props) {
       </div>
       <button
         type="button"
-        className="select-trainer"
+        className="submitButton"
         onClick={() => setShowAvatar((prevState) => !prevState)}
       >
-        Velg Trener
+        Velg Avatar
       </button>
 
       <button className="submitButton" type="submit">

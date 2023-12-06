@@ -1,18 +1,14 @@
 .nav {
+  width: 100%;
   background-color: #F29985;
-  color: aliceblue;
-  padding: 10px;
-  position: fixed;
+  height: 36px;
   display: flex;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  flex-direction:column;
+  align-items: flex-start;
+  position: relative;
 }
 
 .nav button {
-    align-items: center;
+    align-items: left;
     appearance: none;
     background-color: #edea84;
     background-image: linear-gradient(1deg, #F27877, #edea84 92%);
@@ -23,7 +19,7 @@
     box-sizing: border-box;
     color: #0e0b0b;
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     font-family: CircularStd,sans-serif;
     font-size: 1rem;
     height: auto;
@@ -53,19 +49,34 @@
   button:focus:not(:active) {
     box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
   }
+ 
+  .nav-no-trainer-message {
+    position: absolute;
+    right: 0; 
+    margin: 0;
+    padding: 10px; 
+    color: white; 
+  } 
+  
+.nav-bio-container {
+  display: flex;
+  align-items: center;
+  float: right;
+  position: fixed;
+  margin-left: auto; 
+}
 
 .nav-bio {
-  display: flex;
+  display: inherit;
   position: inherit;
   text-align: center;
   height: 36px;
   width: 48px;
-  float: right;
   background-color:  #F29985;
 }
 
 .nav-trainer-text {
- display: flex;
+ display: inherit;
  margin-right: 4px;
  height: 12px;
  color: rgb(0, 0, 0);

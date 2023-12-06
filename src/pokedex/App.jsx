@@ -90,23 +90,6 @@ const getCurrentPage = (appState) => {
   return selectedPage;
 };
 
-const getCurrentTrainer = (appState) => {
-  // get trainer object
-  const selectedTrainer = appState.allTrainers.find(
-    (trainer) => trainer.name === appState.selectedTrainerName,
-  );
-  return selectedTrainer;
-};
-
-const updateCurrentTrainer = (appState, trainerName) => {
-  const appStateClone = structuredClone(appState);
-
-  // set trainer object
-  appStateClone.selectedTrainerName = trainerName;
-
-  return appStateClone; // <- IMPORTANT
-};
-
 // const SelectTrainerPage = (props) => {
 //   const { appState, setAppState } = props;
 
@@ -121,18 +104,21 @@ const App = () => {
     return getInitialAppState();
   });
   const currentPage = getCurrentPage(currentAppState);
+  console.log("this is the current appState", currentAppState);
 
   function setCurrentPage(nextPage) {
+    // 1. Make updated version of app state
     const nextAppState = updateCurrentPage(currentAppState, nextPage);
+    // 2. Rerender app with new app state
     setAppState(nextAppState);
   }
 
   return (
     <div className="body">
       <div className="nav">
-        {<NavBio className="nav-bio" />}
+        {<NavBio className="nav-bio" appState={currentAppState} />}
         <button
-          className="button"
+          className="nav.button"
           role="button"
           onClick={() => setCurrentPage("games")}
         >

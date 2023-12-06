@@ -1,14 +1,15 @@
 import { getSelectedTrainer } from "../api/trainerService";
+import "../styles/navigationBar.css";
 
 export const NavBio = () => {
   const trainerProfile = getSelectedTrainer();
 
   if (!trainerProfile) {
-    return <p>Fant ikke trener</p>;
+    return <p className="nav-no-trainer-message">Fant ikke trener</p>;
   }
 
   return (
-    <div>
+    <div className="nav-bio-container">
       <img
         className="nav-bio"
         src={trainerProfile.avatar}

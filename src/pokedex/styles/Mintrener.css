@@ -11,8 +11,9 @@
 
 .trainer-buttons-container {
   display: flex;  
-  justify-content: center;
- margin-top: 20px;
+  justify-content: flex-start;
+  flex-direction: row;
+ /* margin-top: 20px; */
 }
 
 .trainer-buttons button {
@@ -99,9 +100,35 @@
     white-space: nowrap;
 }
 
-.select-trainer-button-style {
-  margin-right: 4px;
-  margin-top: 4px;
+.create-trainer-list-button-style {
+  align-items: center;
+  appearance: none;
+  background-color: #edea84;
+  background-image: linear-gradient(1deg, #A0D9D4, #edea84 92%);
+  background-size: calc(100% + 20px) calc(100% + 20px);
+  border-radius: 100px;
+  border-width: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #0e0b0b;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: CircularStd,sans-serif;
+  font-size: 1rem;
+  height: auto;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 6px 20px;
+  margin-left: 4px;
+  /* position: fixed; */
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .2s,background-position .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 .trainer-container {
@@ -170,7 +197,7 @@
   background-color: #edea84;
 }
 
-.select-trainer{
+.submitButton{
   align-items: center;
     appearance: none;
     background-color: #edea84;
@@ -201,16 +228,16 @@
     white-space: nowrap;
   }
   
-  select-trainer:active,
-  select-trainer:focus {
+  .submitButton:active,
+  .submitButton:focus {
     outline: none;
   }
   
-  select-trainer:hover {
+  .submitButton:hover {
     background-position: -20px -20px;
   }
   
-  select-trainer:focus:not(:active) {
+  .submitButton:focus:not(:active) {
     box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
   /* background-color: #F27877;
   color: whitesmoke;
@@ -220,12 +247,12 @@
 .avatarPicture{
   display: flex;
   flex-direction: row;
-  height: 400px;
-  width: 300px;
+  height: 200px;
+  width: 150px;
 }
 
-.submitButton {
-  align-items: center;
+/* .submitButton { */
+  /* align-items: center;
     appearance: none;
     background-color: #edea84;
     background-image: linear-gradient(1deg, #A0D9D4, #edea84 92%);
@@ -244,7 +271,7 @@
     line-height: 1.0;
     padding: 0px 10px;
     margin-left: 4px;
-    /* position: fixed; */
+    position: fixed;
     text-align: center;
     text-decoration: none;
     transition: background-color .2s,background-position .2s;
@@ -267,4 +294,4 @@
   submitButton:focus:not(:active) {
     box-shadow: rgba(1, 7, 11, 0.25) 0 0 0 .125em;
   }
- 
+  */

@@ -4,11 +4,11 @@ const TRAINER_KEY = "selectedTrainer"
 export const saveTrainers = (trainerArray) => {
   console.log("saveTrainers running", trainerArray)
   const data = JSON.stringify(trainerArray);
-  localStorage.setItem(DATA_KEY, data);
+  localStorage.setItem(DATA_KEY, data); //this one works well. how can I make saveSelecetdTrainer do the same and update. 
 };
 
 export const getTrainers = () => {
-  console.log("getTrainers running")
+  // console.log("getTrainers running")
   const trainersString = localStorage.getItem(DATA_KEY);
   const trainers = JSON.parse(trainersString);
   if (trainers === null) {
@@ -18,6 +18,7 @@ export const getTrainers = () => {
 };
 
 export const saveSelecetdTrainer = (trainer) => {
+  console.log("trainer service running with", trainer, "saved")
   localStorage.setItem(TRAINER_KEY, trainer.name)
 }
 

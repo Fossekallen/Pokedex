@@ -3,6 +3,14 @@
 import "../styles/Mintrener.css";
 import islandFloat from "../../assets/islandFloat.png";
 
+/**
+ *
+ * @param {{
+ *  trainers: any[];
+ *  onTrainerSelected: (trainer: any) => void
+ * }} props
+ * @returns JSX
+ */
 export function TrainersList(props) {
   const trainers = props.trainers;
   console.log("trainers list");
