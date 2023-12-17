@@ -4,18 +4,12 @@ import jordan from "../../assets/jordan.png";
 import leo from "../../assets/leo-trener1.png";
 import * as mathService from "../api/mathService";
 
-function getMathProblem() {
-  const firstRandomNumber = mathService.firstRandomNumber;
-  const secondRandomNumber = mathService.secondRandomNumber;
-  return { firstRandomNumber, secondRandomNumber };
-}
-
 function calculate(firstRandomNumber, secondRandomNumber, mathLevel) {
-  if (mathLevel === "level1") {
+  if (mathLevel === 1) {
     return firstRandomNumber + secondRandomNumber;
-  } else if (mathLevel === "level2") {
+  } else if (mathLevel === 2) {
     return firstRandomNumber - secondRandomNumber;
-  } else if (mathLevel === "level3") {
+  } else if (mathLevel === 3) {
     return firstRandomNumber * secondRandomNumber;
   }
   throw new Error("unknown math error");
@@ -26,17 +20,22 @@ export const MathGames = (props) => {
   // const [secondRandomNumber, setsecondRandomNumber] = useState(0);
   const [guess, setGuess] = useState(0);
   const [submittedAnswer, setSubmittedAnswer] = useState(0);
-  const mathLevel = props.selectMathProblem;
-  const { firstRandomNumber, secondRandomNumber } = getMathProblem();
-  const answer = calculate(firstRandomNumber, secondRandomNumber, mathLevel);
+  const mathLevel = props.appState.taskState.level;
+  const answer = props.appState.taskState.answer;
+  const taskState = props.appState.taskState;
+
+  console.log("dette er taskState i games", taskState);
+
+  let firstRandomNumber = "y";
+  let secondRandomNumber = "x";
 
   const handleClick = () => {
-    if (mathLevel === "level1") {
-      levelOneMath();
-    } else if (mathLevel === "level2") {
-      levelTwoMath();
-    } else if (mathLevel === "level3") {
-      levelThreeMath();
+    if (mathLevel === 1) {
+      mathService.levelOneMath();
+    } else if (mathLevel === 2) {
+      mathService.levelTwoMath();
+    } else if (mathLevel === 3) {
+      mathService.levelThreeMath();
     }
   };
 
@@ -64,7 +63,7 @@ export const MathGames = (props) => {
 
   return (
     <div>
-      {mathLevel === "level1" && (
+      {mathLevel === 1 && (
         <div>
           <h1
             className={`game-header ${guess === 0 ? "red" : "blue"}`}
@@ -78,15 +77,12 @@ export const MathGames = (props) => {
             <button
               className="mathButton"
               onClick={() => {
-                getMathProblem();
-                levelOneMath();
+                const mathStats = mathService.levelOneMath();
               }}
             >
               Lag Mattestykke
             </button>
-            <label className="mathNumbers">{firstRandomNumber}</label>{" "}
-            <div className="asterisk">+</div>{" "}
-            <label className="mathNumbers">{secondRandomNumber}</label>
+            <label className="mathNumbers">{taskState.problem}</label>{" "}
             <div className="asterisk">=</div>{" "}
             <input
               className="input-box"
@@ -111,7 +107,7 @@ export const MathGames = (props) => {
         </div>
       )}
 
-      {mathLevel === "level2" && (
+      {mathLevel === 2 && (
         <div>
           <h1 className="game-header">Nivå 2</h1>
           <div className="calculation">
@@ -147,7 +143,7 @@ export const MathGames = (props) => {
         </div>
       )}
 
-      {mathLevel === "level3" && (
+      {mathLevel === 3 && (
         <div>
           <h1 className="game-header">Nivå 3</h1>
           <div className="calculation">

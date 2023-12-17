@@ -79,7 +79,7 @@ function getInitialAppState() {
     taskState: {
       type: "math",
       level: 1,
-      problem: "1+1",
+      problem: "1 + 1",
       answer: 2,
       attempts: 0,
       reward: {
