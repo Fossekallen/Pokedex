@@ -71,13 +71,41 @@ const idealAppState = {
 function getInitialAppState() {
   const allTrainers = trainerService.getTrainers();
   const selectedTrainerName = trainerService.getSelectedTrainerName();
-
+  // getStoredTrainerPoints();
   return {
     currentPage: "pokedex",
     selectedTrainerName, // 'leo'
     allTrainers,
+    taskState: {
+      type: "math",
+      level: 1,
+      problem: "1+1",
+      answer: 2,
+      attempts: 0,
+      reward: {
+        points: 20,
+        pokemonId: "",
+        backgroundId: "",
+        avatarId: "",
+      },
+    },
+    taskHistory: [],
   };
 }
+
+function setTaskState(appState, newTaskState) {
+  const appStateClone = structuredClone(appState);
+
+  appStateClone.taskState = newTaskState;
+
+  return appStateClone;
+}
+
+function createMathTask(mathLevel) {
+  const selectedLevel = selectedLevel.mathLevel;
+}
+
+function mathTaskWithAnswer() {}
 
 function updateCurrentPage(appState, nextPage) {
   const stateClone = structuredClone(appState);
@@ -103,6 +131,7 @@ const App = () => {
   const [currentAppState, setAppState] = useState(() => {
     return getInitialAppState();
   });
+
   const currentPage = getCurrentPage(currentAppState);
   console.log("this is the current appState", currentAppState);
 
@@ -116,7 +145,6 @@ const App = () => {
   return (
     <div className="body">
       <div className="nav">
-        {<NavBio className="nav-bio" appState={currentAppState} />}
         <button
           className="nav.button"
           role="button"
@@ -139,6 +167,7 @@ const App = () => {
         >
           Pokedex
         </button>
+        {<NavBio className="nav-bio" appState={currentAppState} />}
       </div>
 
       {currentPage === "games" && (

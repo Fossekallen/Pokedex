@@ -2,70 +2,33 @@ import { useState } from "react";
 import "../styles/games.css";
 import jordan from "../../assets/jordan.png";
 import leo from "../../assets/leo-trener1.png";
+import * as mathService from "../api/mathService";
 
-function calculate(firstNumber, secondNumber, mathLevel) {
+function getMathProblem() {
+  const firstRandomNumber = mathService.firstRandomNumber;
+  const secondRandomNumber = mathService.secondRandomNumber;
+  return { firstRandomNumber, secondRandomNumber };
+}
+
+function calculate(firstRandomNumber, secondRandomNumber, mathLevel) {
   if (mathLevel === "level1") {
-    return firstNumber + secondNumber;
+    return firstRandomNumber + secondRandomNumber;
   } else if (mathLevel === "level2") {
-    return firstNumber - secondNumber;
+    return firstRandomNumber - secondRandomNumber;
   } else if (mathLevel === "level3") {
-    return firstNumber * secondNumber;
+    return firstRandomNumber * secondRandomNumber;
   }
   throw new Error("unknown math error");
 }
 
 export const MathGames = (props) => {
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [secondNumber, setSecondNumber] = useState(0);
+  // const [firstRandomNumber, setfirstRandomNumber] = useState(0);
+  // const [secondRandomNumber, setsecondRandomNumber] = useState(0);
   const [guess, setGuess] = useState(0);
+  const [submittedAnswer, setSubmittedAnswer] = useState(0);
   const mathLevel = props.selectMathProblem;
-  const [submittedAnswer, setSubmittedAnswer] = useState(undefined);
-
-  const answer = calculate(firstNumber, secondNumber, mathLevel);
-
-  function levelOneMath() {
-    const min = 1;
-    const max = 20;
-    const firstRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    let secondRandomNumber = firstRandomNumber;
-
-    while (secondRandomNumber === firstRandomNumber) {
-      secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    //ikke bruk set, men return
-    setFirstNumber(firstRandomNumber);
-    setSecondNumber(secondRandomNumber);
-  }
-
-  function levelTwoMath() {
-    const min = 10;
-    const max = 40;
-    const firstRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    let secondRandomNumber = firstRandomNumber;
-
-    while (secondRandomNumber === firstRandomNumber) {
-      secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    setFirstNumber(firstRandomNumber);
-    setSecondNumber(secondRandomNumber);
-  }
-
-  function levelThreeMath() {
-    const min = 1;
-    const max = 10;
-    const firstRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    let secondRandomNumber = firstRandomNumber;
-
-    while (secondRandomNumber === firstRandomNumber) {
-      secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    setFirstNumber(firstRandomNumber);
-    setSecondNumber(secondRandomNumber);
-  }
+  const { firstRandomNumber, secondRandomNumber } = getMathProblem();
+  const answer = calculate(firstRandomNumber, secondRandomNumber, mathLevel);
 
   const handleClick = () => {
     if (mathLevel === "level1") {
@@ -78,9 +41,10 @@ export const MathGames = (props) => {
   };
 
   function onGuess(e) {
-    const value = e.target.value;
-    const parsedValue = Number.parseInt(value);
+    const mathValue = e.target.mathValue;
+    const parsedValue = Number.parseInt(mathValue);
     setGuess(parsedValue);
+    // app;
   }
 
   function onSubmitGuess() {
@@ -114,25 +78,35 @@ export const MathGames = (props) => {
             <button
               className="mathButton"
               onClick={() => {
-                handleClick();
+                getMathProblem();
+                levelOneMath();
               }}
             >
               Lag Mattestykke
             </button>
-            <label className="mathNumbers">{firstNumber}</label>{" "}
+            <label className="mathNumbers">{firstRandomNumber}</label>{" "}
             <div className="asterisk">+</div>{" "}
-            <label className="mathNumbers">{secondNumber}</label>
+            <label className="mathNumbers">{secondRandomNumber}</label>
             <div className="asterisk">=</div>{" "}
             <input
               className="input-box"
               type="number"
+              placeholder="0"
               onChange={onGuess}
             ></input>
             <button className="mathButton" onClick={onSubmitGuess}>
               Send Svar
             </button>
-            <div className="asterisk">{answer}</div>{" "}
-            <div className="asterisk">{guess}</div>{" "}
+            <div className="mathAnswerGraphic">
+              <div className="asterisk">
+                {answer} <p>Is the answer</p>
+              </div>{" "}
+              <div className="asterisk">
+                {guess}
+                <p>Is the guess</p>{" "}
+              </div>{" "}
+              {culculationFeedback()}
+            </div>
           </div>
         </div>
       )}
@@ -145,20 +119,29 @@ export const MathGames = (props) => {
               Lag Mattestykke
             </button>
             <div className="calculation">
-              <label className="mathNumbers">{firstNumber}</label>{" "}
+              <label className="mathNumbers">{firstRandomNumber}</label>{" "}
               <div className="asterisk">-</div>{" "}
-              <label className="mathNumbers">{secondNumber}</label>
+              <label className="mathNumbers">{secondRandomNumber}</label>
               <div className="asterisk">=</div>{" "}
               <input
                 className="input-box"
                 type="number"
+                placeholder="0"
                 onClick={onGuess}
               ></input>
               <button className="mathButton" onClick={onSubmitGuess}>
                 Send Svar
               </button>
-              <div className="asterisk">{answer}</div>{" "}
-              <div className="asterisk">{guess}</div>{" "}
+              <div className="mathAnswerGraphic">
+                <div className="asterisk">
+                  {answer} <p>Is the answer</p>
+                </div>{" "}
+                <div className="asterisk">
+                  {guess}
+                  <p>Is the guess</p>{" "}
+                </div>{" "}
+                {culculationFeedback()}
+              </div>
             </div>
           </div>
         </div>
@@ -172,13 +155,14 @@ export const MathGames = (props) => {
               Lag Mattestykke
             </button>
             <div className="calculation">
-              <label className="mathNumbers">{firstNumber}</label>{" "}
+              <label className="mathNumbers">{firstRandomNumber}</label>{" "}
               <div className="asterisk">*</div>{" "}
-              <label className="mathNumbers">{secondNumber}</label>
+              <label className="mathNumbers">{secondRandomNumber}</label>
               <div className="asterisk">=</div>{" "}
               <input
                 className="input-box"
                 type="number"
+                placeholder="0"
                 onClick={onGuess}
               ></input>
               <button className="mathButton" onClick={onSubmitGuess}>

@@ -60,9 +60,9 @@
   
 .nav-bio-container {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   float: right;
-  position: fixed;
+  /* position: fixed; */
   margin-left: auto; 
 }
 

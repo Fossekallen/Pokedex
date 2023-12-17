@@ -8,7 +8,6 @@ export const saveTrainers = (trainerArray) => {
 };
 
 export const getTrainers = () => {
-  // console.log("getTrainers running")
   const trainersString = localStorage.getItem(DATA_KEY);
   const trainers = JSON.parse(trainersString);
   if (trainers === null) {
