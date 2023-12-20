@@ -62,15 +62,10 @@ const idealAppState = {
   ],
 };
 
-/**
- {  type: 'reading',
-    text: 'bla bla bla',
-    level: 2,
-    startTime: '2023-02-02T12:00:00',}
- */
 function getInitialAppState() {
   const allTrainers = trainerService.getTrainers();
   const selectedTrainerName = trainerService.getSelectedTrainerName();
+
   // getStoredTrainerPoints();
   return {
     currentPage: "pokedex",
@@ -93,20 +88,6 @@ function getInitialAppState() {
   };
 }
 
-function setTaskState(appState, newTaskState) {
-  const appStateClone = structuredClone(appState);
-
-  appStateClone.taskState = newTaskState;
-
-  return appStateClone;
-}
-
-function createMathTask(mathLevel) {
-  const selectedLevel = selectedLevel.mathLevel;
-}
-
-function mathTaskWithAnswer() {}
-
 function updateCurrentPage(appState, nextPage) {
   const stateClone = structuredClone(appState);
   stateClone.currentPage = nextPage; //update appstate next page
@@ -117,15 +98,6 @@ const getCurrentPage = (appState) => {
   const selectedPage = appState.currentPage;
   return selectedPage;
 };
-
-// const SelectTrainerPage = (props) => {
-//   const { appState, setAppState } = props;
-
-//   const onTrainerClick = (trainer) => {
-//     const nextState = updateCurrentTrainer(appState, trainer.name);
-//     setAppState(nextState);
-//   };
-// };
 
 const App = () => {
   const [currentAppState, setAppState] = useState(() => {

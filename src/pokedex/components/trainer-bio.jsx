@@ -1,39 +1,39 @@
-import { getTrainers, getSelectedTrainerName } from "../api/trainerService";
-import { useState } from "react";
-import { MathGames, ReadGames } from "./games";
+import { MathGames } from "./games";
+import * as mathService from "../api/mathService";
 import "../styles/catchPokemon.css";
 
-export const MathProblems = (props) => {
-  const taskState = props.appState.taskState;
+const setTaskState = (appState, taskState) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskState = taskState;
+  return appStateClone;
+};
 
-  const mathLevelSelect = (props) => {
-    const levelSelect = props;
-    if (levelSelect === "none") {
-      return;
-    } else if (levelSelect === "level1") {
-      return setSelectMathProblem("level1");
-    } else if (levelSelect === "level2") {
-      return setSelectMathProblem("level2");
-    } else return setSelectMathProblem("level3");
+export const MathProblems = (props) => {
+  const { appState, setAppState } = props;
+
+  const handleLevelSelect = (level) => {
+    const newTaskState = mathService.createTaskState(level);
+    const clonedAppState = setTaskState(appState, newTaskState);
+    setAppState(clonedAppState);
   };
 
   return (
     <div className="trainer-info-wrap">
       <button
         className="select-level-button"
-        onClick={() => mathLevelSelect("level1")}
+        onClick={() => handleLevelSelect(1)}
       >
         Matte Nivå 1
       </button>
       <button
         className="select-level-button"
-        onClick={() => mathLevelSelect("level2")}
+        onClick={() => handleLevelSelect(2)}
       >
         Matte Nivå 2
       </button>
       <button
         className="select-level-button"
-        onClick={() => mathLevelSelect("level3")}
+        onClick={() => handleLevelSelect(3)}
       >
         Matte Nivå 3
       </button>

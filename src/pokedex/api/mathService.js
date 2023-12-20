@@ -1,3 +1,16 @@
+export const createTaskState = (level) => {
+  if (level === 1) {
+    return levelOneMath()
+  }
+  if (level === 2) {
+    return levelTwoMath()
+  }
+  if (level === 3) {
+    return levelThreeMath()
+  }
+  throw new Error("unsuported math level "+level);
+}
+
 export const levelOneMath = () => {
   console.log("level One Running")
   const min = 1;
@@ -28,6 +41,7 @@ export const levelOneMath = () => {
 }
 
 export const levelTwoMath = () => {
+  console.log("level Two Running")
   const min = 10;
   const max = 40;
   const firstRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -37,14 +51,12 @@ export const levelTwoMath = () => {
   while (secondRandomNumber === firstRandomNumber) {
     secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  // setFirstNumber(firstRandomNumber);
-  // setSecondNumber(secondRandomNumber);
 
   return {
   type: "math",
   level: 2,
-  problem: `${firstRandomNumber} + ${secondRandomNumber}`,
-  answer: firstRandomNumber + secondRandomNumber,
+  problem: `${firstRandomNumber} - ${secondRandomNumber}`,
+  answer: firstRandomNumber - secondRandomNumber,
   attempts: 0,
     reward: {
       points: 40,
@@ -56,6 +68,7 @@ export const levelTwoMath = () => {
 }
 
 export const levelThreeMath = () => {
+  console.log("level Three Running")
   const min = 1;
   const max = 10;
   const firstRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -66,14 +79,12 @@ export const levelThreeMath = () => {
     secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  // setFirstNumber(firstRandomNumber);
-  // setSecondNumber(secondRandomNumber);
 
   return {
     type: "math",
   level: 3,
-  problem: `${firstRandomNumber} + ${secondRandomNumber}`,
-  answer: firstRandomNumber + secondRandomNumber,
+  problem: `${firstRandomNumber} * ${secondRandomNumber}`,
+  answer: firstRandomNumber * secondRandomNumber,
   attempts: 0,
     reward: {
       points: 60,
