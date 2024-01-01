@@ -51,7 +51,7 @@ export const TrainerBio = (props) => {
   }
 
   const selectedTrainerBio = trainerLibrary.find(
-    (trainer) => trainer.name === selectedTrainerName,
+    (trainer) => trainer.selectedTrainerName === selectedTrainerName,
   );
 
   return (

@@ -36,5 +36,5 @@ if (!selectedTrainerName) {
 const trainerProfile = trainers.find(
   (trainer) => trainer.name === selectedTrainerName
 );
-return trainerProfile
+return (trainerProfile)
 }

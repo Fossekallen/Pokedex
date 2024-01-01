@@ -69,7 +69,7 @@ function getInitialAppState() {
   // getStoredTrainerPoints();
   return {
     currentPage: "pokedex",
-    selectedTrainerName, // 'leo'
+    selectedTrainerName: "leo",
     allTrainers,
     taskState: {
       type: "math",
@@ -139,7 +139,13 @@ const App = () => {
         >
           Pokedex
         </button>
-        {<NavBio className="nav-bio" appState={currentAppState} />}
+        {
+          <NavBio
+            className="nav-bio"
+            appState={currentAppState}
+            setAppState={setAppState}
+          />
+        }
       </div>
 
       {currentPage === "games" && (
