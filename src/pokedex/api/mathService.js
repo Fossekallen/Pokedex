@@ -13,6 +13,10 @@ export const createTaskState = (level) => {
 
 export const levelOneMath = () => {
   console.log("level One Running")
+  
+  let attempts = levelOneMath.attempts + 1;
+  // let attempts = (typeof levelOneMath.attempts === 'number') ? levelOneMath.attempts + 1 : 1;
+
   const min = 1;
   const max = 20;
 
@@ -93,4 +97,21 @@ export const levelThreeMath = () => {
       avatarId: "",
     },
   }
+}
+
+export const attemptCount = (count, taskState) => {
+  const attempts = taskState.attempts
+  if (attempts === 3 ) {
+    count = 0
+  }
+}
+  
+export const addAttemptToTaskHistory = (taskState, taskHistory) => {
+  const attempts = taskState.attempts
+  if (attempts === 3) {
+    taskHistory.push(1)
+  } 
+  return {
+    taskHistory: [],
+  };
 }

@@ -2,41 +2,57 @@ import { useState } from "react";
 import "../styles/games.css";
 import jordan from "../../assets/jordan.png";
 import leo from "../../assets/leo-trener1.png";
+import * as mathService from "../api/mathService";
+
+// to do sindre. this is duplicated
+const setTaskState = (appState, taskState, taskHistory) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskState = taskState;
+  appStateClone.taskHistory = taskHistory;
+  return appStateClone;
+};
 
 export const MathGames = (props) => {
   const { appState, setAppState } = props;
-  const [guess, setGuess] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+  const [count, setCount] = useState(0);
   const [submittedAnswer, setSubmittedAnswer] = useState(0);
   const answer = props.appState.taskState.answer;
   const taskState = props.appState.taskState;
+  const taskHistory = props.appState.taskHistory;
 
-  function onGuess(e) {
+  function onInputValueChange(e) {
     const mathValue = e.target.value;
     const parsedValue = Number.parseInt(mathValue);
-    setGuess(parsedValue);
+    setInputValue(parsedValue);
   }
 
   function onSubmitGuess() {
-    console.log("trykket på svar knapp", { guess, answer });
-    setSubmittedAnswer(guess);
-  }
+    setSubmittedAnswer(inputValue);
+    setCount(count + 1);
 
-  const culculationFeedback = () => {
-    if (submittedAnswer === answer) {
-      return (
-        <img className="feedbackImage" src={jordan} width={40} height={40} />
-      );
-    } else {
-      return <img className="feedbackImage" src={leo} width={40} height={40} />;
+    if (inputValue === answer) {
+      console.log("the answer is correct. you tried " + count + "times");
+    } else if (inputValue !== answer) {
+      console.log("I pitty the fool");
     }
-  };
+    const attemptCount = attemptCount(count, taskState);
+    const updateTaskHistory = mathService.addAttemptToTaskHistory(
+      appState,
+      taskHistory,
+    );
+    const currentLevel = taskState.level;
+    const newMath = mathService.createTaskState(currentLevel);
+    const clonedAppState = setTaskState(appState, newMath, updateTaskHistory);
+    setAppState(clonedAppState);
+  }
 
   return (
     <div>
       <h1
-        className={`game-header ${guess === 0 ? "red" : "blue"}`}
+        className={`game-header ${inputValue === 0 ? "red" : "blue"}`}
         style={{
-          backgroundColor: guess === 0 ? "red" : "blue",
+          backgroundColor: inputValue === 0 ? "red" : "blue",
         }}
       >
         Nivå {appState.taskState.level}
@@ -48,9 +64,9 @@ export const MathGames = (props) => {
           className="input-box"
           type="number"
           placeholder="0"
-          onChange={onGuess}
+          onChange={onInputValueChange}
         ></input>
-        <button className="mathButton" onClick={onSubmitGuess}>
+        <button className="mathButton" onClick={onSubmitGuess} value={"Reset"}>
           Send Svar
         </button>
         <div className="mathAnswerGraphic">
@@ -58,10 +74,9 @@ export const MathGames = (props) => {
             {answer} <p>Is the answer</p>
           </div>{" "}
           <div className="asterisk">
-            {guess}
-            <p>Is the guess</p>{" "}
+            {inputValue}
+            <p>Is the inputValue</p>{" "}
           </div>{" "}
-          {culculationFeedback()}
         </div>
       </div>
     </div>
