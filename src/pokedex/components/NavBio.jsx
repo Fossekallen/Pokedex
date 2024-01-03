@@ -2,7 +2,7 @@ import * as trainerService from "../api/trainerService";
 import "../styles/navigationBar.css";
 
 export const NavBio = (props) => {
-  const [appState, setAppState] = props;
+  const { appState, setAppState } = props;
   const trainerProfile = trainerService.getSelectedTrainer();
   const trainerLibrary = appState.selectedTrainerName;
   if (!trainerProfile) {

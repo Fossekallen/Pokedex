@@ -42,17 +42,27 @@ export const MathProblems = (props) => {
   );
 };
 
-export const TrainerBio = (props) => {
-  const trainerLibrary = props.appState.allTrainers;
-  const selectedTrainerName = props.appState.selectedTrainerName;
+export const TrainerBio = ({ appState, setAppState }) => {
+  console.log(appState);
+  const trainerLibrary = appState.allTrainers;
+  console.log(trainerLibrary);
+  const selectedTrainerName = appState.selectedTrainerName;
+  console.log(selectedTrainerName);
 
   if (!selectedTrainerName) {
     return <p>Ingen trener valgt</p>;
   }
 
-  const selectedTrainerBio = trainerLibrary.find(
-    (trainer) => trainer.selectedTrainerName === selectedTrainerName,
-  );
+  const selectedTrainerBio = trainerLibrary.find((trainer) => {
+    if (trainer.name === selectedTrainerName) {
+      return true;
+    }
+  });
+
+  if (!selectedTrainerBio) {
+    console.log("Selected trainer not found. All trainers:", trainerLibrary);
+    return <p>Selected trainer not found</p>;
+  }
 
   return (
     <div className="catch-pokemon-page">
@@ -63,11 +73,13 @@ export const TrainerBio = (props) => {
         <div className="trainer-info-wrap">
           <img
             className="selected-trainer-bio"
-            src={selectedTrainerBio.avatar}
-            alt={selectedTrainerBio.name}
+            // src={selectedTrainerBio.avatar}
+            alt={selectedTrainerBio.trainerName}
           />
           <div className="trainer-info-row">
-            <p className="trainer-bio-text">Navn: {selectedTrainerBio.name}</p>
+            <p className="trainer-bio-text">
+              Navn: {selectedTrainerBio.trainerName}
+            </p>
             <p className="trainer-bio-text">Alder: {selectedTrainerBio.age}</p>
             <p className="trainer-bio-text">
               Favoritt Pokemon: {selectedTrainerBio.favPokemon}
@@ -75,10 +87,7 @@ export const TrainerBio = (props) => {
           </div>
         </div>
 
-        <MathProblems
-          appState={props.appState}
-          setAppState={props.setAppState}
-        />
+        <MathProblems appState={appState} setAppState={setAppState} />
       </div>
     </div>
   );

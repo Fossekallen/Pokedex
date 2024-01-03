@@ -6,6 +6,7 @@ import { Pokedex } from "./components/pokedex";
 import { MinTrener } from "./components/Mintrener";
 import { NavBio } from "./components/NavBio";
 import * as trainerService from "./api/trainerService";
+import * as mathService from "./api/mathService";
 
 const idealAppState = {
   currentPage: "pokedex",
@@ -69,21 +70,9 @@ function getInitialAppState() {
   // getStoredTrainerPoints();
   return {
     currentPage: "pokedex",
-    selectedTrainerName: "leo",
-    allTrainers,
-    taskState: {
-      type: "math",
-      level: 1,
-      problem: "1 + 1",
-      answer: 2,
-      attempts: 0,
-      reward: {
-        points: 20,
-        pokemonId: "",
-        backgroundId: "",
-        avatarId: "",
-      },
-    },
+    selectedTrainerName: selectedTrainerName,
+    allTrainers: allTrainers,
+    taskState: mathService.createTaskState(1),
     taskHistory: [],
   };
 }

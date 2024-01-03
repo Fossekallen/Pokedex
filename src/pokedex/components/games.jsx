@@ -12,8 +12,7 @@ const setTaskState = (appState, taskState, taskHistory) => {
   return appStateClone;
 };
 
-export const MathGames = (props) => {
-  const { appState, setAppState } = props;
+export const MathGames = ({ appState, setAppState }) => {
   const [inputValue, setInputValue] = useState(0);
   const [count, setCount] = useState(0);
   const [submittedAnswer, setSubmittedAnswer] = useState(0);
