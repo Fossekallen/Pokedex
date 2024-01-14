@@ -1,25 +1,30 @@
 import { useState } from "react";
 import "../styles/games.css";
-import jordan from "../../assets/jordan.png";
-import leo from "../../assets/leo-trener1.png";
 import * as mathService from "../api/mathService";
 
 // to do sindre. this is duplicated
-const setTaskState = (appState, taskState, taskHistory) => {
+const setTaskState = (appState, taskState) => {
   const appStateClone = structuredClone(appState);
   appStateClone.taskState = taskState;
-  appStateClone.taskHistory = taskHistory;
+  return appStateClone;
+};
+
+const addTaskStateToTaskHistory = (appState, taskState) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskHistory = appStateClone.taskHistory.concat(taskState);
+  return appStateClone;
+};
+
+const incrementAttemptsToTaskState = (appState) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskState.attempts = appState.taskState.attempts + 1;
   return appStateClone;
 };
 
 export const MathGames = ({ appState, setAppState }) => {
   const [inputValue, setInputValue] = useState(0);
-  const [count, setCount] = useState(0);
-  const [submittedAnswer, setSubmittedAnswer] = useState(0);
-  const answer = props.appState.taskState.answer;
-  const taskState = props.appState.taskState;
-  const taskHistory = props.appState.taskHistory;
-
+  const answer = appState.taskState.answer;
+  const taskState = appState.taskState;
   function onInputValueChange(e) {
     const mathValue = e.target.value;
     const parsedValue = Number.parseInt(mathValue);
@@ -27,23 +32,27 @@ export const MathGames = ({ appState, setAppState }) => {
   }
 
   function onSubmitGuess() {
-    setSubmittedAnswer(inputValue);
-    setCount(count + 1);
-
     if (inputValue === answer) {
-      console.log("the answer is correct. you tried " + count + "times");
-    } else if (inputValue !== answer) {
-      console.log("I pitty the fool");
+      const currentLevel = taskState.level;
+      const newTaskState = mathService.createTaskState(currentLevel);
+
+      const newAppState1 = setTaskState(appState, newTaskState);
+      const newAppState2 = addTaskStateToTaskHistory(newAppState1, taskState);
+      setAppState(newAppState2);
+      console.log(
+        "the answer is correct. you tried " + taskState.attempts + " times",
+      );
     }
-    const attemptCount = attemptCount(count, taskState);
-    const updateTaskHistory = mathService.addAttemptToTaskHistory(
-      appState,
-      taskHistory,
-    );
-    const currentLevel = taskState.level;
-    const newMath = mathService.createTaskState(currentLevel);
-    const clonedAppState = setTaskState(appState, newMath, updateTaskHistory);
-    setAppState(clonedAppState);
+
+    if (inputValue !== answer) {
+      const incrementedAppState = incrementAttemptsToTaskState(appState);
+      console.log(
+        "I pitty the fool who tries " +
+          incrementedAppState.taskState.attempts +
+          " times",
+      );
+      setAppState(incrementedAppState);
+    }
   }
 
   return (

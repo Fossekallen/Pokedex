@@ -8,6 +8,7 @@ import { NavBio } from "./components/NavBio";
 import * as trainerService from "./api/trainerService";
 import * as mathService from "./api/mathService";
 
+// eslint-disable-next-line no-unused-vars
 const idealAppState = {
   currentPage: "pokedex",
   selectedTrainer: {
@@ -94,12 +95,10 @@ const App = () => {
   });
 
   const currentPage = getCurrentPage(currentAppState);
-  console.log("this is the current appState", currentAppState);
 
   function setCurrentPage(nextPage) {
-    // 1. Make updated version of app state
     const nextAppState = updateCurrentPage(currentAppState, nextPage);
-    // 2. Rerender app with new app state
+
     setAppState(nextAppState);
   }
 

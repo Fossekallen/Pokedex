@@ -43,11 +43,8 @@ export const MathProblems = (props) => {
 };
 
 export const TrainerBio = ({ appState, setAppState }) => {
-  console.log(appState);
   const trainerLibrary = appState.allTrainers;
-  console.log(trainerLibrary);
   const selectedTrainerName = appState.selectedTrainerName;
-  console.log(selectedTrainerName);
 
   if (!selectedTrainerName) {
     return <p>Ingen trener valgt</p>;

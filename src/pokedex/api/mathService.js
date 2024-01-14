@@ -14,9 +14,6 @@ export const createTaskState = (level) => {
 export const levelOneMath = () => {
   console.log("level One Running")
   
-  let attempts = levelOneMath.attempts + 1;
-  // let attempts = (typeof levelOneMath.attempts === 'number') ? levelOneMath.attempts + 1 : 1;
-
   const min = 1;
   const max = 20;
 
@@ -83,13 +80,12 @@ export const levelThreeMath = () => {
     secondRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-
   return {
     type: "math",
-  level: 3,
-  problem: `${firstRandomNumber} * ${secondRandomNumber}`,
-  answer: firstRandomNumber * secondRandomNumber,
-  attempts: 0,
+    level: 3,
+    problem: `${firstRandomNumber} * ${secondRandomNumber}`,
+    answer: firstRandomNumber * secondRandomNumber,
+    attempts: 0,
     reward: {
       points: 60,
       pokemonId: "",
@@ -97,21 +93,4 @@ export const levelThreeMath = () => {
       avatarId: "",
     },
   }
-}
-
-export const attemptCount = (count, taskState) => {
-  const attempts = taskState.attempts
-  if (attempts === 3 ) {
-    count = 0
-  }
-}
-  
-export const addAttemptToTaskHistory = (taskState, taskHistory) => {
-  const attempts = taskState.attempts
-  if (attempts === 3) {
-    taskHistory.push(1)
-  } 
-  return {
-    taskHistory: [],
-  };
 }

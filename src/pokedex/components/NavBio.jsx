@@ -2,9 +2,10 @@ import * as trainerService from "../api/trainerService";
 import "../styles/navigationBar.css";
 
 export const NavBio = (props) => {
-  const { appState, setAppState } = props;
+  const { appState } = props;
   const trainerProfile = trainerService.getSelectedTrainer();
   const trainerLibrary = appState.selectedTrainerName;
+  const taskState = appState.taskState;
   if (!trainerProfile) {
     return <p className="nav-no-trainer-message">Fant ikke trener</p>;
   }
@@ -14,12 +15,12 @@ export const NavBio = (props) => {
       <img
         className="nav-bio"
         src={trainerProfile.avatar}
-        alt={trainerLibrary.selectedTrainerName}
+        alt={trainerLibrary}
       />
       <form className="nav-trainer-text">
-        <label>{trainerLibrary.selectedTrainerName}</label>
+        <label>{trainerLibrary}</label>
         <label>Level {trainerProfile.favPokemon}</label>
-        <label> XP {appState.taskState.points}</label>
+        <label> XP {taskState.reward.points}</label>
       </form>
     </div>
   );
