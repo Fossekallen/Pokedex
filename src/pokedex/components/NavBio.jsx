@@ -1,4 +1,5 @@
 import * as trainerService from "../api/trainerService";
+import { appStateOps } from "../domain/appStateOperations";
 import "../styles/navigationBar.css";
 
 export const NavBio = (props) => {
