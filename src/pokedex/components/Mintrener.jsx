@@ -3,6 +3,7 @@ import "../styles/Mintrener.css";
 import { TrainerForm } from "./TrainerForm";
 import { TrainersList } from "./ListeAvTrenere";
 import * as trainerService from "../api/trainerService";
+import { appStateOps } from "../domain/appStateOperations";
 
 function addTrainerToAppState(appState, newTrainer) {
   const stateClone = structuredClone(appState);
@@ -21,38 +22,23 @@ function checkTrainerNameAlreadyExists(appState, trainerName) {
   return Boolean(existingTrainer);
 }
 
-const updateCurrentTrainer = (appState, selectedTrainerName) => {
-  const appStateClone = structuredClone(appState);
-
-  // set trainer by name
-  appStateClone.selectedTrainerName = selectedTrainerName;
-
-  return appStateClone; // <- IMPORTANT
-};
-
 export const MinTrener = (props) => {
   const { appState, setAppState } = props;
   const [customizeTrainer, setCustomizeTrainer] = useState("create");
 
   const createNewTrainer = (newTrainer) => {
-    //0.check new trainer name
     const nameAlreadyExists = checkTrainerNameAlreadyExists(
       appState,
       newTrainer.name,
     );
     if (nameAlreadyExists) {
       console.log("Name already taken, stopping createNewTrainer");
-      // 0.b. Return error message to component that called the function
       return { type: "error", message: "name exists" };
     }
+    // to do Stian: set avatar as requirement for completing the form.
 
-    // 1. Create an updated state
     const newAppState = addTrainerToAppState(appState, newTrainer);
-    // 2. Render the app with the new state
     setAppState(newAppState);
-    //newtrainer submit contains updated trainer. needs to be put in appState for instant update
-
-    // 3. Persist all trainers to trainerService
     trainerService.saveTrainers(newAppState.allTrainers);
   };
 
@@ -92,7 +78,7 @@ export const MinTrener = (props) => {
           trainers={appState.allTrainers}
           onTrainerSelected={(selectedTrainer) => {
             // 1. Create a updated state
-            const updatedAppStateClone = updateCurrentTrainer(
+            const updatedAppStateClone = appStateOps.updateCurrentTrainer(
               appState,
               selectedTrainer.name,
             );

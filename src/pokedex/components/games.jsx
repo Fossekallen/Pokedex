@@ -1,25 +1,7 @@
 import { useState } from "react";
 import "../styles/games.css";
 import * as mathService from "../api/mathService";
-
-// to do sindre. this is duplicated
-const setTaskState = (appState, taskState) => {
-  const appStateClone = structuredClone(appState);
-  appStateClone.taskState = taskState;
-  return appStateClone;
-};
-
-const addTaskStateToTaskHistory = (appState, taskState) => {
-  const appStateClone = structuredClone(appState);
-  appStateClone.taskHistory = appStateClone.taskHistory.concat(taskState);
-  return appStateClone;
-};
-
-const incrementAttemptsToTaskState = (appState) => {
-  const appStateClone = structuredClone(appState);
-  appStateClone.taskState.attempts = appState.taskState.attempts + 1;
-  return appStateClone;
-};
+import { appStateOps } from "../domain/appStateOperations";
 
 export const MathGames = ({ appState, setAppState }) => {
   const [inputValue, setInputValue] = useState(0);
@@ -36,8 +18,11 @@ export const MathGames = ({ appState, setAppState }) => {
       const currentLevel = taskState.level;
       const newTaskState = mathService.createTaskState(currentLevel);
 
-      const newAppState1 = setTaskState(appState, newTaskState);
-      const newAppState2 = addTaskStateToTaskHistory(newAppState1, taskState);
+      const newAppState1 = appStateOps.setTaskState(appState, newTaskState);
+      const newAppState2 = appStateOps.addTaskStateToTaskHistory(
+        newAppState1,
+        taskState,
+      );
       setAppState(newAppState2);
       console.log(
         "the answer is correct. you tried " + taskState.attempts + " times",
@@ -45,7 +30,8 @@ export const MathGames = ({ appState, setAppState }) => {
     }
 
     if (inputValue !== answer) {
-      const incrementedAppState = incrementAttemptsToTaskState(appState);
+      const incrementedAppState =
+        appStateOps.incrementAttemptsToTaskState(appState);
       console.log(
         "I pitty the fool who tries " +
           incrementedAppState.taskState.attempts +

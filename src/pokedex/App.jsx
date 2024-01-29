@@ -5,6 +5,7 @@ import { TrainerBio } from "./components/trainer-bio";
 import { Pokedex } from "./components/pokedex";
 import { MinTrener } from "./components/Mintrener";
 import { NavBio } from "./components/NavBio";
+import { appStateOps } from "./domain/appStateOperations";
 import * as trainerService from "./api/trainerService";
 import * as mathService from "./api/mathService";
 
@@ -78,26 +79,18 @@ function getInitialAppState() {
   };
 }
 
-function updateCurrentPage(appState, nextPage) {
-  const stateClone = structuredClone(appState);
-  stateClone.currentPage = nextPage; //update appstate next page
-  return stateClone;
-}
-
-const getCurrentPage = (appState) => {
-  const selectedPage = appState.currentPage;
-  return selectedPage;
-};
-
 const App = () => {
   const [currentAppState, setAppState] = useState(() => {
     return getInitialAppState();
   });
 
-  const currentPage = getCurrentPage(currentAppState);
+  const currentPage = appStateOps.getCurrentPage(currentAppState);
 
   function setCurrentPage(nextPage) {
-    const nextAppState = updateCurrentPage(currentAppState, nextPage);
+    const nextAppState = appStateOps.updateCurrentPage(
+      currentAppState,
+      nextPage,
+    );
 
     setAppState(nextAppState);
   }

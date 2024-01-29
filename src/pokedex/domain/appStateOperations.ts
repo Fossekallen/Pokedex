@@ -38,6 +38,49 @@ const setTaskState = (appState: AppState, taskState: TaskState): AppState => {
   return appStateClone;
 };
 
+const getCurrentPage = (appState: AppState) => {
+  const selectedPage = appState.currentPage;
+  return selectedPage;
+};
+
+const updateCurrentPage = (
+  appState: AppState,
+  nextPage: "pokedex" | "minTrener" | "games",
+): AppState => {
+  const stateClone = structuredClone(appState);
+  stateClone.currentPage = nextPage; //update appstate next page
+  return stateClone;
+};
+
+const addTaskStateToTaskHistory = (
+  appState: AppState,
+  taskState: TaskState,
+) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskHistory = appStateClone.taskHistory.concat(taskState);
+  return appStateClone;
+};
+
+const incrementAttemptsToTaskState = (appState: AppState) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.taskState.attempts = appState.taskState.attempts + 1;
+  return appStateClone;
+};
+
+const updateCurrentTrainer = (
+  appState: AppState,
+  selectedTrainerName: string,
+) => {
+  const appStateClone = structuredClone(appState);
+  appStateClone.selectedTrainerName = selectedTrainerName;
+  return appStateClone;
+};
+
 export const appStateOps = {
   setTaskState,
+  getCurrentPage,
+  updateCurrentPage,
+  addTaskStateToTaskHistory,
+  incrementAttemptsToTaskState,
+  updateCurrentTrainer,
 };

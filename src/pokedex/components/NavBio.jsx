@@ -1,10 +1,10 @@
 import * as trainerService from "../api/trainerService";
-import { appStateOps } from "../domain/appStateOperations";
+// import { appStateOps } from "../domain/appStateOperations";
 import "../styles/navigationBar.css";
 
 export const NavBio = (props) => {
   const { appState } = props;
-  const trainerProfile = trainerService.getSelectedTrainer();
+  const trainerProfile = trainerService.getSelectedTrainer(); //to do: Stian hend den fra appState
   const trainerLibrary = appState.selectedTrainerName;
   const taskState = appState.taskState;
   if (!trainerProfile) {
